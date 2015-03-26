@@ -1,0 +1,5 @@
+vendor/*
+.bundle/*
+doc/*
+.DS_Store
+env.yml
