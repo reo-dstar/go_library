@@ -46,5 +46,4 @@ class Server < Sinatra::Base
 	}
 	JSON.generate(res).to_s
   end
-
 end
