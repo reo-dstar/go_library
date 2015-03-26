@@ -6,6 +6,7 @@ require 'json'
 # require 'coffee-script'
 
 require_relative 'lib/web_a_p_i_func.rb'
+require_relative 'lib/calil_func.rb'
 # require_relative 'models/init'
 
 class Server < Sinatra::Base
@@ -15,12 +16,12 @@ class Server < Sinatra::Base
 
   get '/search' do
   	if params[:viaList].nil?
-  		raise
+  		raise ParameterError
   	end
 	viaList = params[:viaList]
 	vias = viaList.split(':')
 	if (vias.size() < 2)
-		raise
+		raise ParameterError
 	end
   	searchType = 'plain'  	
   	func = WebAPIFunc::Func.new('/search/course/extreme')
@@ -32,7 +33,7 @@ class Server < Sinatra::Base
 
   get '/ajax/station' do
     if !params[:name] 
-    	raise
+    	raise ParameterError
     end
     func = WebAPIFunc::Func.new('/station/light')
 	func.args[:name] = params[:name]
@@ -45,5 +46,26 @@ class Server < Sinatra::Base
 		}
 	}
 	JSON.generate(res).to_s
+  end
+
+  get '/ajax/library' do
+  	if !params[:geocode]
+  		raise ParameterError
+  	end
+  	func = CalilFunc::Func.new('/library')
+  	func.args[:geocode] = params[:geocode]
+  	func.call
+  	librarys = func.response.xpath('//Library')
+  	res = librarys.collect{|library|
+  		{
+  			:name => library.xpath('./formal/text()').to_s,
+  			:url_pc => library.xpath('./url_pc/text()').to_s,
+  			:address => library.xpath('./address/text()').to_s,
+  			:tel => library.xpath('./tel/text()').to_s,
+  			:geocode => library.xpath('./geocode/text()').to_s,
+  			:distance => library.xpath('./distance/text()').to_s,
+  		}
+  	}
+  	JSON.generate(res).to_s
   end
 end
