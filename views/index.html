@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Find Library</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class='container'>
+	    <h1>駅から駅を探索して近くの図書館をさがします。</h1>
+	    駅を入力してください。
+		<div class="row">
+			<div class="col-md-4">
+				<div class="input-group">
+				    <span class="input-group-addon">出発地</span>
+				    <input id=from type="text" class="form-control" placeholder="例:五反田">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="input-group">
+				    <span class="input-group-addon">目的地</span>
+				    <input id=to type="text" class="form-control" placeholder="例:高円寺">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="input-group">
+				    <input id=via1 type="text" class="form-control" placeholder="省略可">
+				    <span class="input-group-addon">経由</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="input-group">
+				    <input id=via2 type="text" class="form-control" placeholder="省略可">
+				    <span class="input-group-addon">経由</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="input-group">
+				    <input id=via3 type="text" class="form-control" placeholder="省略可">
+				    <span class="input-group-addon">経由</span>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
