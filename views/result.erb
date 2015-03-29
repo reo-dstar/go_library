@@ -1,0 +1,30 @@
+	<div class='container'>
+	    <h1><span class="label label-default">駅から駅を探索して近くの図書館をさがします</span></h1>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-5">
+				    	<h4>各駅の近くの図書館を表示しています</h4>
+			    	</div>
+		    	</div>
+		    </div>
+			<div class="panel-body">
+<% stations.each{|station| %>
+				<div class="row">
+					<h3>
+						<div class="col-md-2 station-data">
+							<span class="label <%= station[:primary] ? "label-primary" : "label-default" %>">
+								<span class="glyphicon <%= station[:primary] ? "glyphicon-map-marker" : "glyphicon-arrow-down" %> "></span><span><%= station[:name] %></span>
+								<input class="geocode" type=hidden value="<%= station[:geopoint]%>">
+								<input class="primary" type=hidden value="<%= station[:primary]%>">
+							</span>
+						</div>
+						<div class="col-md-8">
+							<div class="btn-group"></div>
+						</div>
+					</h3>
+				</div>
+<% } %>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,68 @@
+	<div class='container'>
+	    <h1><span class="label label-default">駅から駅を探索して近くの図書館をさがします</span></h1>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-5">
+				    	<h4>駅を入力してください</h4>
+			    	</div>
+		    	</div>
+		    </div>
+			<div class="panel-body">
+				<div class="row inputrow">
+					<div class="col-md-4">
+						<div class="input-group">
+						    <span class="input-group-addon">出発地</span>
+						    <input id=from type="text" class="form-control stationEntry" placeholder="例:五反田">
+						    <select class='nodisplay stationSelectBox' size=10></select>
+						</div>
+					</div>
+				</div>
+				<div class="row inputrow">
+					<div class="col-md-4">
+						<div class="input-group">
+						    <span class="input-group-addon">目的地</span>
+						    <input id=to type="text" class="form-control stationEntry" placeholder="例:高円寺">
+						    <select class='nodisplay stationSelectBox' size=10></select>
+						</div>
+					</div>
+				</div>
+				<div class="row inputrow">
+					<div class="col-md-1"></div>
+					<div class="col-md-3">
+						<div class="input-group">
+						    <input id=via1 type="text" class="form-control stationEntry" placeholder="省略可">
+						    <select class='nodisplay stationSelectBox' size=10></select>
+						    <span class="input-group-addon">経由</span>
+						</div>
+					</div>
+				</div>
+				<div class="row inputrow">
+					<div class="col-md-1"></div>
+					<div class="col-md-3">
+						<div class="input-group">
+						    <input id=via2 type="text" class="form-control stationEntry" placeholder="省略可">
+						    <select class='nodisplay stationSelectBox' size=10></select>
+						    <span class="input-group-addon">経由</span>
+						</div>
+					</div>
+				</div>
+				<div class="row inputrow">
+					<div class="col-md-1"></div>
+					<div class="col-md-3">
+						<div class="input-group">
+						    <input id=via3 type="text" class="form-control stationEntry" placeholder="省略可">
+						    <select class='nodisplay stationSelectBox' size=10></select>
+						    <span class="input-group-addon">経由</span>
+						</div>
+					</div>
+				</div>
+				<div class="row inputrow">
+					<div class="col-md-3"></div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-success search">探索</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

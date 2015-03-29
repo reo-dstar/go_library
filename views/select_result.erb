@@ -1,0 +1,26 @@
+	<div class='container'>
+	    <h1><span class="label label-default">駅から駅を探索して近くの図書館をさがします</span></h1>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-5">
+				    	<h4>図書館を探す経路を選択してください</h4>
+			    	</div>
+		    	</div>
+		    </div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-16">
+						<div class="btn-group btn-group-vertical btn-group-lg">
+							<% course_list.each{|course| %>
+						    	<button type="button" class="btn btn-success routeSelect" title="<%= course[:Text] %>">
+						    		<%= course[:Text].length <= 40 ? course[:Text] : course[:Text][0..40]+'...'  %>
+						    	</button>
+						    	<input type=hidden value='<%= course[:SerializeData] %>'>
+						    <% } %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
