@@ -5,9 +5,30 @@ var findLiblary = findLiblary || {};
 (function (findLiblary){
 	var incrementalSearchInterval = 2000;
 
+	function moveSelected(select_elm, updown) {
+		var select_box = jQuery(select_elm);
+		var options = select_box.children('option');
+		var selected_index = options.index(select_box.children('option:selected')[0]);
+		if (updown == 'up') {
+			if (selected_index <= 0) {
+				return false;
+			}
+			select_box.val(options.eq(selected_index-1).val());
+		}
+		else if (updown == 'down') {
+			if (selected_index >= options.length) {
+				return false;
+			}
+			select_box.val(options.eq(selected_index+1).val());
+		}
+	}
+
+
 	findLiblary.setIncrementalSearchAgent = function(selecter) {
 		var interval = 2000;
 		jQuery(selecter).each(function() {
+			var target = jQuery(this);
+			var old = target.val();
 			function getStationList(target, str) {
 				if (!str) {
 					return;
@@ -24,11 +45,32 @@ var findLiblary = findLiblary || {};
 					for each (var station in json) {
 						text += '<option value='+station.code+'>'+station.name+'</option>';
 					}
-				 	_target.nextAll('.stationSelectBox').empty().append(text).show().focus();
+				 	var options = jQuery(text);
+				 	var station_select = _target.nextAll('.stationSelectBox').empty().append(options).show().css('display','inline').val(options.eq(0).val());
+				 	(function(jq_station_entry, jq_station_select){
+				 		jq_station_select.click(function(){
+				 			jq_station_entry.val( jq_station_select.children('option:selected').text() );
+				 			jq_station_select.hide();
+				 			old = jq_station_entry.val();
+				 			jq_station_entry.parents('.inputrow').next().find('.stationEntry').focus();
+				 		})
+				 	})(_target, station_select);
 				})
 			}
-			var target = jQuery(this);
-			var old = target.val();
+			target.keydown(function(e){
+				if (e.keyCode == 13) {
+					//Enter
+					jQuery(this).nextAll('.stationSelectBox').click();
+				}
+				else if (e.keyCode == 38) {
+					//↑
+					moveSelected(jQuery(this).nextAll('.stationSelectBox')[0], 'up');
+				}
+				else if (e.keyCode == 40) {
+					//↓
+					moveSelected(jQuery(this).nextAll('.stationSelectBox')[0], 'down');
+				}
+			});
 			function check()
 			{
 				var v = target.val();
@@ -42,28 +84,18 @@ var findLiblary = findLiblary || {};
 		});
 	};
 
-
-	findLiblary.attachSetStation = function(selecter) {
-		jQuery(selecter).keypress( function ( e ) {
-			if ( e.which == 13 ) {
-				var stationListBox = jQuery(this);
-				var station_tgt = stationListBox.prevAll('.stationEntry')
-				station_tgt.val(jQuery(this).find('option:selected').text());
-				stationListBox.closest('.inputrow').next('.inputrow').find('.stationEntry').focus();
-				stationListBox.hide();
-			}
-		});
-	}
-
 	findLiblary.attachSearchRoute = function(selecter) {
 		jQuery(selecter).click(function(){
 			var stationList = [];
-			jQuery('.stationEntry').each(function () {
+			var entrys = jQuery('.stationEntry')
+			entrys.each(function () {
 				var val = jQuery(this).val();
 				if (val) {
 					stationList.push(val);
 				}
 			})
+			var to = stationList.splice(1, 1)[0];
+			stationList.push(to);
 			var viaList = stationList.join(':');
 			window.location.href = "/search?viaList=" + viaList;
 		});
@@ -86,12 +118,12 @@ var findLiblary = findLiblary || {};
 				text += '<span class="glyphicon glyphicon-book"></span><span>'+name+'</span>'
 				text += '</button>'
 				elm = jQuery(text);
-				// ex_stationData.next('div').children('.btn-group').append(text);				
 				ex_stationData.next('div').children('.btn-group').append(elm);
-				
-				elm.click(function(){
-					window.location.href = library.url_pc;
-				})
+				(function(url_pc){
+					elm.click(function(){
+						window.location.href = url_pc;
+					})
+				})(library.url_pc);
 			}
 		})
 	};
@@ -105,16 +137,6 @@ var findLiblary = findLiblary || {};
 			if (primary == 'true') {
 				(function(ex_stationData, ex_geocode) {
 					searchLibrary(ex_stationData, ex_geocode);
-					// jQuery.getJSON('ajax/library?geocode='+ex_geocode, function(json) {
-					// 	var text = ''
-					// 	for each (var library in json) {
-					// 		var name = library.name
-					// 		text += '<button type="button library" class="btn btn-success" title="'+ name+ '" >'
-					// 		text += '<span class="glyphicon glyphicon-book"></span><span>'+name+'</span>'
-					// 		text += '</button>'
-					// 	}
-					// 	ex_stationData.next('div').children('.btn-group').append(text)
-					// })
 				})(stationData, geocode);
 			}
 			else {
@@ -132,7 +154,6 @@ var findLiblary = findLiblary || {};
 
 //イベントの割り当て
 findLiblary.setIncrementalSearchAgent('.stationEntry');
-findLiblary.attachSetStation('.stationSelectBox');
 findLiblary.attachSearchRoute('.search');
 findLiblary.attachSelectResult('.routeSelect')
 
