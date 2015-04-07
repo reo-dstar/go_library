@@ -25,7 +25,7 @@ var findLiblary = findLiblary || {};
 
 
 	findLiblary.setIncrementalSearchAgent = function(selecter) {
-		var interval = 2000;
+		var interval = 500;
 		jQuery(selecter).each(function() {
 			var target = jQuery(this);
 			var old = target.val();
@@ -42,7 +42,8 @@ var findLiblary = findLiblary || {};
 					if (json.length == 0) {
 						return;
 					}
-					for each (var station in json) {
+					for(var i=0; i<json.length; i++) {
+						var station = json[i];
 						text += '<option value='+station.code+'>'+station.name+'</option>';
 					}
 				 	var options = jQuery(text);
@@ -111,7 +112,8 @@ var findLiblary = findLiblary || {};
 
 	function searchLibrary(ex_stationData, ex_geocode) {
 		jQuery.getJSON('ajax/library?geocode='+ex_geocode, function(json) {
-			for each (var library in json) {
+			for(var i=0; i<json.length; i++) {
+				var library = json[i];
 				var text = ''
 				var name = library.name
 				text += '<button type="button library" class="btn btn-success" title="'+ name+ '" >'

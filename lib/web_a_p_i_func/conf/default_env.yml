@@ -1,14 +1,5 @@
 #env.yml-----------------------------------
 ---
-# userDir:                   'user'
-# file_teiki:                'v3teiki.xml'
-# file_stopsect:             'stopsect.xml'
-# file_userland:             'land.xml'
-# hotel_reservation_service: 'http://hiroba.ekiworld.net/square/reservation'
-# exp_stationinfo_service:   'http://join.ekiworld.net/expstainfo/expstainfo.cgi'
-# weather_service:           'http://hiroba.ekiworld.net/square/weather'
-# bus_timetable_service:     'http://join.ekiworld.net/expbus/expbus.cgi'
-# vacant_seat_service:       'http://join.ekiworld.net/expair/expair.cgi'
 web_a_p_i_mode:            'rest'
 web_a_p_i_version:         'v1'
 web_a_p_i_host:  null

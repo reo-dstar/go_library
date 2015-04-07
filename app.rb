@@ -37,19 +37,19 @@ class Server < Sinatra::Base
   	func.call
   	#必要な情報だけを抽出
   	course_list = func.response.xpath('//Course').collect {|course|
-		course_hash = {}
-		course_txt = ''
-		lines = course.xpath('//Line')
-		points = course.xpath('//Point')
-		points.each_with_index{|point, index|
-			course_txt += point.xpath('./Station/Name/text()').to_s
-			if (index < lines.length)
-				course_txt += '[' + lines[index].xpath('./Name/text()').to_s + ']'
-			end
-		}
-		course_hash[:Text] = course_txt
-		course_hash[:SerializeData] = course.xpath('./SerializeData/text()').to_s
-		course_hash
+  		course_hash = {}
+  		course_txt = ''
+  		lines = course.xpath('.//Line')
+  		points = course.xpath('.//Point')
+  		points.each_with_index{|point, index|
+  			course_txt += point.xpath('./Station/Name/text()').to_s
+  			if (index < lines.length)
+  				course_txt += '[' + lines[index].xpath('./Name/text()').to_s + ']'
+  			end
+  		}
+  		course_hash[:Text] = course_txt
+  		course_hash[:SerializeData] = course.xpath('./SerializeData/text()').to_s
+  		course_hash
   	}
 	erubis :select_result, :locals => {:course_list => course_list}
   end
@@ -135,7 +135,6 @@ class Server < Sinatra::Base
   			:distance => library.xpath('./distance/text()').to_s,
   		}
   	}
-pp res
   	JSON.generate(res).to_s
   end
 
