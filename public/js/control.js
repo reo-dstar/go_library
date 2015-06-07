@@ -25,7 +25,7 @@ var findLiblary = findLiblary || {};
 
 
 	findLiblary.setIncrementalSearchAgent = function(selecter) {
-		var interval = 500;
+		var interval = 100;
 		jQuery(selecter).each(function() {
 			var target = jQuery(this);
 			var old = target.val();

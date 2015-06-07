@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'nokogiri'
 gem 'erubis'
-gem 'shotgun'
+gem 'unicorn'
 gem 'json'
 
 
