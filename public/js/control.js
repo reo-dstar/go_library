@@ -98,38 +98,22 @@ var findLiblary = findLiblary || {};
 			var to = stationList.splice(1, 1)[0];
 			stationList.push(to);
 			var viaList = stationList.join(':');
-			window.location.href = "/search?viaList=" + viaList;
+			jQuery('#search_result').load("/search?viaList=" + viaList, function(){
+				findLiblary.attachSelectResult('.routeSelect');
+				jQuery('#search_result').animatescroll({scrollSpeed:2000,easing:'easeOutElastic'});
+			})
 		});
 	}
 
 	findLiblary.attachSelectResult = function(selecter) {
 		jQuery(selecter).click(function(){
 			serializeData = jQuery(this).nextAll('input').val();
-			window.location.href = "/result?serializeData=" + serializeData;
+			jQuery('#result').load("/result?serializeData=" + serializeData,function(){
+				findLiblary.attachAndExecSearchLibrary();
+				jQuery('#result').animatescroll({scrollSpeed:2000,easing:'easeOutBounce'});
+			})
 		})
 	}
-
-
-	function searchLibrary(ex_stationData, ex_geocode) {
-		jQuery.getJSON('ajax/library?geocode='+ex_geocode, function(json) {
-			for(var i=0; i<json.length; i++) {
-				var library = json[i];
-				var text = ''
-				var name = library.name
-				text += '<button type="button library" class="btn btn-success" title="'+ name+ '" >'
-				text += '<span class="glyphicon glyphicon-book"></span><span>'+name+'</span>'
-				text += '</button>'
-				elm = jQuery(text);
-				ex_stationData.next('div').children('.btn-group').append(elm);
-				(function(url_pc){
-					elm.click(function(){
-						window.open(url_pc);
-					})
-				})(library.url_pc);
-			}
-		})
-	};
-
 
 	findLiblary.attachAndExecSearchLibrary = function() {
 		jQuery('.station-data').each(function(){
@@ -151,15 +135,34 @@ var findLiblary = findLiblary || {};
 		})
 	}
 
+	function searchLibrary(ex_stationData, ex_geocode) {
+		jQuery.getJSON('ajax/library?geocode='+ex_geocode, function(json) {
+			for(var i=0; i<json.length; i++) {
+				var library = json[i];
+				var text = ''
+				var name = library.name
+				text += '<button type="button library" class="btn btn-success" title="'+ name+ '" >'
+				text += '<span class="glyphicon glyphicon-book"></span><span>'+name+'</span>'
+				text += '</button>'
+				elm = jQuery(text);
+				ex_stationData.next('div').children('.btn-group').append(elm);
+				(function(url_pc){
+					elm.click(function(){
+						window.open(url_pc);
+					})
+				})(library.url_pc);
+			}
+		})
+	};
 })(findLiblary);
 
 
 //イベントの割り当て
 findLiblary.setIncrementalSearchAgent('.stationEntry');
 findLiblary.attachSearchRoute('.search');
-findLiblary.attachSelectResult('.routeSelect')
+// findLiblary.attachSelectResult('.routeSelect')
 
-findLiblary.attachAndExecSearchLibrary()
+// findLiblary.attachAndExecSearchLibrary()
 
 
 

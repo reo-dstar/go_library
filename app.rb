@@ -22,11 +22,11 @@ class Server < Sinatra::Base
   	if params[:viaList].nil?
   		raise ParameterError
   	end
-	viaList = params[:viaList]
-	vias = viaList.split(':')
-	if (vias.size() < 2)
-		raise ParameterError
-	end
+  	viaList = params[:viaList]
+  	vias = viaList.split(':')
+  	if (vias.size() < 2)
+  		raise ParameterError
+  	end
   	# searchType = 'plain'  	
   	searchType = 'departure'  	
   	time = '1000'
@@ -51,7 +51,7 @@ class Server < Sinatra::Base
   		course_hash[:SerializeData] = course.xpath('./SerializeData/text()').to_s
   		course_hash
   	}
-	erubis :select_result, :locals => {:course_list => course_list}
+	   erubis :select_result, :locals => {:course_list => course_list}, :layout => false
   end
 
   get '/result' do
@@ -95,7 +95,7 @@ class Server < Sinatra::Base
 	  		}
   		end
   	}
-  	erubis :result, :locals => {:stations => res_stations}
+  	erubis :result, :locals => {:stations => res_stations}, :layout => false
   end
 
 
