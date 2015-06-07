@@ -10,10 +10,13 @@
 </head>
   <body>
     <h1><%= @title %></h1>
-
-    <%== yield %>
-
+    <div class='container' id='index'>
+      <%== yield %>
+    </div>
+    <div class='container' id='search_result'></div>
+    <div class='container' id='result'></div>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   <script src="js/lib/animatescroll/animatescroll.min.js"></script>
    <script src="bootstrap/js/bootstrap.min.js"></script>
    <script src="js/control.js"></script>
 	</body>
