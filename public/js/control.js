@@ -123,7 +123,7 @@ var findLiblary = findLiblary || {};
 				ex_stationData.next('div').children('.btn-group').append(elm);
 				(function(url_pc){
 					elm.click(function(){
-						window.location.href = url_pc;
+						window.open(url_pc);
 					})
 				})(library.url_pc);
 			}
