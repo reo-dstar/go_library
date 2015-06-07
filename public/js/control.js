@@ -160,9 +160,6 @@ var findLiblary = findLiblary || {};
 //イベントの割り当て
 findLiblary.setIncrementalSearchAgent('.stationEntry');
 findLiblary.attachSearchRoute('.search');
-// findLiblary.attachSelectResult('.routeSelect')
-
-// findLiblary.attachAndExecSearchLibrary()
 
 
 
